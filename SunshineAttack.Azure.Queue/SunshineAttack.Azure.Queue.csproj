@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageQueueExtensions.cs" />
+    <Compile Include="QueueManager.cs" />
     <Compile Include="TypedMessage.cs" />
     <Compile Include="TypedQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
