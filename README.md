@@ -9,7 +9,7 @@ Provides an easy to use API to access the Azure Queue API using strongly-typed m
 
 ### Usage
 ```csharp
-var _appleQueue = new TypedQueue<Apple>("Apple")();
+var _appleQueue = new TypedQueue<Apple>("Apple");
 
 var messagge = _queue.GetMessage();
 
