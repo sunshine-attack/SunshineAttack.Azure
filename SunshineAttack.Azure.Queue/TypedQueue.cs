@@ -44,15 +44,9 @@ namespace SunshineAttack.Azure.TypedQueueMessage
         {
             CloudQueueMessage message = Queue.GetMessage(TimeSpan.FromMinutes(5));
 
-            Byte[] byteMessage = null;
-
-            if (message != null)
-            {
-                byteMessage = message.AsBytes;
-            }
-
-            return byteMessage == null ? null : CreateTypedMessage(message.AsBytes.DecompressToObject<T>());
+            return message == null ? null : CreateTypedMessage(message);
         }
+
 
         public Task AddMessageAsync(TypedMessage<T> message)
         {

@@ -1,5 +1,7 @@
-﻿using Microsoft.WindowsAzure.Storage.Queue;
-using SunshineAttack.Azure.Common;
+﻿using System;
+using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SunshineAttack.Azure.TypedQueueMessage
 {
@@ -9,12 +11,17 @@ namespace SunshineAttack.Azure.TypedQueueMessage
 
         public T AsObject
         {
-            get { return Message == null ? null : Message.AsBytes.DecompressToObject<T>(); }
+            get { return Message == null ? null : Message.SerializeToObject<T>(); }
+        }
+
+        public String AsJson
+        {
+            get { return Message == null ? null : JsonConvert.SerializeObject(Message); }
         }
 
         public TypedMessage(object obj)
         {
-            var message = new CloudQueueMessage(obj.Compress());
+            var message = new CloudQueueMessage(obj.Serialize());
             Advanced = message;
             Message = message;
         }
