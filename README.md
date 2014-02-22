@@ -3,6 +3,7 @@ SunshineAttack.Azure
 
 Provides an easy to use API to access the Azure Queue API using strongly-typed messages.
 
+* A Queue Manager to simplify initializing Queues
 * Each message on the queue is represented by a strongly-typed object
 * Async support
 
