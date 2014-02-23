@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-namespace SunshineAttack.Common
+namespace SunshineAttack.Azure.Common
 {
     public static class TaskExtentions
     {

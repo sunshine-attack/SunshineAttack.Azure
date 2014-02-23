@@ -7,8 +7,8 @@
     <ProjectGuid>{DF261BC6-C3B2-4442-A598-BDA4C7F34DF5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SunshineAttack.AzureHelper.Common</RootNamespace>
-    <AssemblyName>SunshineAttack.AzureHelper.Common</AssemblyName>
+    <RootNamespace>SunshineAttack.Azure.Common</RootNamespace>
+    <AssemblyName>SunshineAttack.Azure.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

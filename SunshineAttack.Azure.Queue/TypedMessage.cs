@@ -7,30 +7,32 @@ namespace SunshineAttack.Azure.TypedQueueMessage
 {
     public class TypedMessage<T> where T : class
     {
-        protected CloudQueueMessage Message;
+        private CloudQueueMessage _message;
 
         public T AsObject
         {
-            get { return Message == null ? null : Message.SerializeToObject<T>(); }
+            get { return _message == null ? null : _message.Deserialize<T>(); }
         }
 
         public String AsJson
         {
-            get { return Message == null ? null : JsonConvert.SerializeObject(Message); }
+            get { return _message == null ? null : JsonConvert.SerializeObject(_message); }
         }
 
         public TypedMessage(object obj)
         {
-            var message = new CloudQueueMessage(obj.Serialize());
+            object objectToAdd = obj;
+
+            var message = new CloudQueueMessage(objectToAdd.Serialize());
             Advanced = message;
-            Message = message;
+            _message = message;
         }
 
 
         public TypedMessage(CloudQueueMessage message)
         {
             Advanced = message;
-            Message = message;
+            _message = message;
         }
 
         public CloudQueueMessage Advanced { get; set; }

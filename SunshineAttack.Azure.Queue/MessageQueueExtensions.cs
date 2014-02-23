@@ -8,20 +8,20 @@ namespace SunshineAttack.Azure.TypedQueueMessage
 {
     public static class MessageQueueExtensions
     {
-        public static T SerializeToObject<T>(this CloudQueueMessage message) where T : class
+        public static T Deserialize<T>(this CloudQueueMessage message) where T : class
         {
-            return message == null ? null : message.AsBytes.SerializeToObject<T>();
+            return message == null ? null : message.AsBytes.Deserialize<T>();
         }
 
-        private static T SerializeToObject<T>(this byte[] compressedObject)
+        private static T Deserialize<T>(this byte[] serializedObject)
         {
-            return SerializeToObject<T>(compressedObject, new UTF8Encoding());
+            return Deserialize<T>(serializedObject, new UTF8Encoding());
         }
 
-        private static T SerializeToObject<T>(this byte[] compressedObject, Encoding encoding)
+        private static T Deserialize<T>(this byte[] serializedObject, Encoding encoding)
         {
             var xmlSer = new XmlSerializer(typeof(T));
-            return (T)xmlSer.Deserialize(new StringReader(compressedObject.DeSerializeToString(encoding)));
+            return (T)xmlSer.Deserialize(new StringReader(serializedObject.DeSerialize(encoding)));
         }
 
         private static byte[] Serialize(this string stringToCompress, Encoding encoding)
@@ -39,22 +39,22 @@ namespace SunshineAttack.Azure.TypedQueueMessage
             }
         }
 
-        private static byte[] Serialize(this object objectToCompress, Encoding encoding)
+        private static byte[] Serialize(this object objectToSerialize, Encoding encoding)
         {
-            var xmlSerializer = new XmlSerializer(objectToCompress.GetType());
+            var xmlSerializer = new XmlSerializer(objectToSerialize.GetType());
             using (var stringWriter = new StringWriter())
             {
-                xmlSerializer.Serialize(stringWriter, objectToCompress);
+                xmlSerializer.Serialize(stringWriter, objectToSerialize);
                 return stringWriter.ToString().Serialize(encoding);
             }
         }
 
-        public static byte[] Serialize(this object objectToCompress)
+        public static byte[] Serialize(this object objectToSerialize)
         {
-            return Serialize(objectToCompress, new UTF8Encoding());
+            return Serialize(objectToSerialize, new UTF8Encoding());
         }
 
-        private static string DeSerializeToString(this byte[] compressedString, Encoding encoding)
+        private static string DeSerialize(this byte[] compressedString, Encoding encoding)
         {
             const int bufferSize = 1024;
             using (var memoryStream = new MemoryStream(compressedString))
